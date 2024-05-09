@@ -60,16 +60,16 @@ while True:
             clicked = True
             balls.append([round(mousePos[0]/r)*r,round(mousePos[1]/r)*r])
     elif key[pygame.K_m]:
-                if not clicked:
-                    clicked = True
-                    if c:
-                        c = False
-                        balls[selected] = [round(mousePos[0]/r)*r,round(mousePos[1]/r)*r]
-                        for k in range(len(links)):
-                                if selected in links[k]:
-                                    linkLength[k] = getDist(balls[links[k][0]],balls[links[k][1]])
-                                    print(linkLength[k])
-                        print("Ball moved")
+        if not clicked:
+            clicked = True
+            if c:
+                c = False
+                balls[selected] = [round(mousePos[0]/r)*r,round(mousePos[1]/r)*r]
+                for k in range(len(links)):
+                        if selected in links[k]:
+                            linkLength[k] = getDist(balls[links[k][0]],balls[links[k][1]])
+                            print(linkLength[k])
+                print("Ball moved")
     else:
         clicked = False
     
