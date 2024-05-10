@@ -2,12 +2,14 @@ import pygame,random,copy,math,ast
 
 import ctypes
 ctypes.windll.user32.SetProcessDPIAware()
-
+pygame.init()
 screen = pygame.display.set_mode((0,0),pygame.FULLSCREEN,pygame.HWSURFACE)
 clock = pygame.time.Clock()
 
+
+
 def checkExit():
-    key = pygame.key.get_pressed()
+    key = pygame.key.get_pressed() 
     if key[pygame.K_ESCAPE]:
         pygame.quit()
         exit()
@@ -78,16 +80,30 @@ clicked = False
 clicked2 = False
 
 bounds = screen.get_size()
+clock = pygame.time.Clock()
+font = pygame.font.Font('freesansbold.ttf', 32)
+minfps = 25
+status = ["",[0,128,0]]
 
 while True:
     checkExit()
+    
 
     screen.fill((20,20,20))
-
+   
     mouseClick = pygame.mouse.get_pressed()
     mousePos = pygame.mouse.get_pos()
-
-    if mouseClick[0]:
+    fps = clock.get_fps()
+    
+    if fps > minfps:
+        status = ["Good",[0,128,0]]
+    else:
+        status = ["Bad",[128,0,0]]
+    
+    
+    text = font.render(status[0], False, status[1])
+    
+    if mouseClick[0] and not fps < minfps:
         balls += 1
         addBall(mousePos)
     key = pygame.key.get_pressed()
@@ -214,6 +230,8 @@ while True:
     #draw balls
     for i in range(balls):
         pygame.draw.circle(screen,(ballColor[i]),ballPos[i],ballSize[i])
+        
+    screen.blit(text, (0,0))
 
     pygame.display.update()
     clock.tick(60)
